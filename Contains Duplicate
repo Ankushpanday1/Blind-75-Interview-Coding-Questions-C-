@@ -1,0 +1,44 @@
+Leetcode Link --> https://leetcode.com/problems/contains-duplicate/description/
+
+Brute Force Approach
+The brute force approach involves checking every element with every other element in the array to find duplicates.
+
+C++ Code (Brute Force)
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+bool containsDuplicate(vector<int>& nums) {
+    int n = nums.size();
+    // Iterate through each element
+    for (int i = 0; i < n; i++) {
+        // Compare the current element with all other elements
+        for (int j = i + 1; j < n; j++) {
+            if (nums[i] == nums[j]) {
+                // If a duplicate is found
+                return true;
+            }
+        }
+    }
+    // No duplicates found
+    return false;
+}
+
+int main() {
+    vector<int> nums = {1, 2, 3, 4, 5, 2}; // Example input
+    if (containsDuplicate(nums)) {
+        cout << "Duplicate found!" << endl;
+    } else {
+        cout << "No duplicates found." << endl;
+    }
+    return 0;
+}
+
+Dry Run (Brute Force)
+Start with nums = {1, 2, 3, 4, 5, 2}.
+For i = 0 (nums[0] = 1), compare with elements at index j = 1 to 5.
+No duplicates found.
+For i = 1 (nums[1] = 2), compare with elements at index j = 2 to 5.
+Duplicate found at j = 5 (nums[1] == nums[5]).
+Return true and exit.
