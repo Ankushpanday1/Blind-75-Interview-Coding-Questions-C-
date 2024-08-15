@@ -42,3 +42,55 @@ No duplicates found.
 For i = 1 (nums[1] = 2), compare with elements at index j = 2 to 5.
 Duplicate found at j = 5 (nums[1] == nums[5]).
 Return true and exit.
+
+
+Optimized Approach
+To optimize, we can use a hash set to track seen elements, reducing the time complexity to O(n).
+
+C++ Code (Optimized)
+
+#include <iostream>
+#include <vector>
+#include <unordered_set>
+using namespace std;
+
+bool containsDuplicate(vector<int>& nums) {
+    unordered_set<int> seen;
+    // Iterate through the elements
+    for (int i = 0; i < nums.size(); i++) {
+        if (seen.find(nums[i]) != seen.end()) {
+            // If the element is already in the set, return true
+            return true;
+        }
+        // Insert the element into the set
+        seen.insert(nums[i]);
+    }
+    // No duplicates found
+    return false;
+}
+
+int main() {
+    vector<int> nums = {1, 2, 3, 4, 5, 2}; // Example input
+    if (containsDuplicate(nums)) {
+        cout << "Duplicate found!" << endl;
+    } else {
+        cout << "No duplicates found." << endl;
+    }
+    return 0;
+}
+
+Dry Run (Optimized)
+Start with nums = {1, 2, 3, 4, 5, 2}.
+Initialize an empty set seen.
+For each element:
+nums[0] = 1: Add to seen.
+nums[1] = 2: Add to seen.
+nums[2] = 3: Add to seen.
+nums[3] = 4: Add to seen.
+nums[4] = 5: Add to seen.
+nums[5] = 2: Already in seen, return true.
+
+
+Summary
+Brute Force: Time Complexity is O(n^2). Compare every element with every other.
+Optimized: Time Complexity is O(n). Use a set to track seen elements. This method is much faster for large arrays and avoids unnecessary comparisons.
