@@ -1,0 +1,99 @@
+Reverse Linked List --> https://leetcode.com/problems/reverse-linked-list/description/
+
+Brute Force Approach:
+The brute force method involves using an auxiliary array or vector to store the nodes' data and then reconstructing the linked list in reverse order. This approach is not optimal because it uses extra space.
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+// Node structure
+struct Node {
+    int data;
+    Node* next;
+    Node(int val) : data(val), next(nullptr) {}
+};
+
+// Function to reverse the linked list using brute force
+Node* reverseLinkedListBruteForce(Node* head) {
+    vector<int> nodesData;
+    
+    // Store the data of the linked list in a vector
+    for (Node* temp = head; temp != nullptr; temp = temp->next) {
+        nodesData.push_back(temp->data);
+    }
+    
+    // Modify the linked list in reverse order
+    for (Node* temp = head; temp != nullptr; temp = temp->next) {
+        temp->data = nodesData.back();
+        nodesData.pop_back();
+    }
+    
+    return head;
+}
+
+// Function to print the linked list
+void printList(Node* head) {
+    for (Node* temp = head; temp != nullptr; temp = temp->next) {
+        cout << temp->data << " ";
+    }
+    cout << endl;
+}
+
+Dry Run of Brute Force Approach
+Consider a linked list: 1 -> 2 -> 3 -> 4
+
+Step 1: Traverse and store the values in a vector nodesData = [1, 2, 3, 4].
+Step 2: Modify the linked list by assigning values in reverse order:
+First node becomes 4
+Second node becomes 3
+Third node becomes 2
+Fourth node becomes 1
+Final Linked List: 4 -> 3 -> 2 -> 1
+
+Optimized Approach:
+The optimized approach reverses the linked list in place by iterating through the list and adjusting the pointers of each node. This approach is efficient in both time and space.
+
+#include <iostream>
+using namespace std;
+
+// Node structure
+struct Node {
+    int data;
+    Node* next;
+    Node(int val) : data(val), next(nullptr) {}
+};
+
+// Function to reverse the linked list in place
+Node* reverseLinkedListOptimized(Node* head) {
+    Node* prev = nullptr;
+    Node* current = head;
+    Node* next = nullptr;
+
+    while (current != nullptr) {
+        next = current->next;  // Store the next node
+        current->next = prev;  // Reverse the current node's pointer
+        prev = current;        // Move prev and current one step forward
+        current = next;
+    }
+
+    return prev;  // New head of the reversed list
+}
+
+// Function to print the linked list
+void printList(Node* head) {
+    for (Node* temp = head; temp != nullptr; temp = temp->next) {
+        cout << temp->data << " ";
+    }
+    cout << endl;
+}
+
+Dry Run of Optimized Approach
+Consider a linked list: 1 -> 2 -> 3 -> 4
+
+Step 1: Initialize prev = nullptr, current = 1, next = 2.
+Step 2: Reverse the 1 node's pointer (1 -> nullptr), move prev to 1, move current to 2.
+Step 3: Reverse the 2 node's pointer (2 -> 1), move prev to 2, move current to 3.
+Step 4: Reverse the 3 node's pointer (3 -> 2), move prev to 3, move current to 4.
+Step 5: Reverse the 4 node's pointer (4 -> 3), move prev to 4, current becomes nullptr.
+Final Linked List: 4 -> 3 -> 2 -> 1
